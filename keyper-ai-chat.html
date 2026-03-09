@@ -158,7 +158,13 @@ function typeWriter(element,text,speed=10){
     function typing(){
 
         if(i<text.length){
-            element.innerHTML+=text.charAt(i)
+
+            if(text.charAt(i) === "\n"){
+                element.innerHTML += "<br>"
+            } else {
+                element.innerHTML += text.charAt(i)
+            }
+
             i++
             messages.scrollTop=messages.scrollHeight
             setTimeout(typing,speed)
@@ -224,8 +230,8 @@ async function sendQuestion(){
         typingMsg.remove()
 
         const formatted = data.answer
-            .replace(/\n/g,"<br>")
-            .replace(/•/g,"<br>•")
+            .replace(/\n/g,"\n")
+            .replace(/•/g,"\n•")
 
         const msg=document.createElement("div")
         msg.className="message bot"
